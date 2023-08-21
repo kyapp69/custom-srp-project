@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2023-08-21
+
+### Added
+
+- _Render Graph Viewer_ can show passes used for every camera.
+
+### Changed
+
+- Use Render Graph API exclusively. This means no easy porting back to Unity 2019.
+- Split rendering code into multiple passes, found in the _Runtime / Passes_ folder.
+- Profiler and frame debugger hierarchy changed due to switch to render graph.
+- Camera names are cached for profiling, if camera has `CustomRenderPipelineCamera` component, otherwise its camera type is used as its name.
+- Cached camera names are reset at domain or scene reload, or when camera is enabled in editor play mode and development builds.
+- No more _Editor Only_ allocations every frame while in the editor.
+- Pre-FX gizmos are now also drawn after post FX,  although they don't appear to exist.
+
 ## [1.0.0] - 2023-08-14
 
 ### Added

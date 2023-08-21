@@ -1,11 +1,10 @@
 ﻿using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.RenderGraphModule;
 using UnityEngine.Rendering;
 
 public class Lighting
 {
-	const string bufferName = "Lighting";
-
 	const int maxDirLightCount = 4, maxOtherLightCount = 64;
 
 	static readonly string lightsPerObjectKeyword = "_LIGHTS_PER_OBJECT";
@@ -39,26 +38,22 @@ public class Lighting
 		otherLightSpotAngles = new Vector4[maxOtherLightCount],
 		otherLightShadowData = new Vector4[maxOtherLightCount];
 
-	readonly CommandBuffer buffer = new()
-	{
-		name = bufferName
-	};
+	CommandBuffer buffer;
 
 	CullingResults cullingResults;
 
 	readonly Shadows shadows = new ();
 
 	public void Setup(
-		ScriptableRenderContext context, CullingResults cullingResults,
+		RenderGraphContext context, CullingResults cullingResults,
 		ShadowSettings shadowSettings, bool useLightsPerObject, int renderingLayerMask)
 	{
+		buffer = context.cmd;
 		this.cullingResults = cullingResults;
-		buffer.BeginSample(bufferName);
 		shadows.Setup(context, cullingResults, shadowSettings);
 		SetupLights(useLightsPerObject, renderingLayerMask);
 		shadows.Render();
-		buffer.EndSample(bufferName);
-		context.ExecuteCommandBuffer(buffer);
+		context.renderContext.ExecuteCommandBuffer(buffer);
 		buffer.Clear();
 	}
 

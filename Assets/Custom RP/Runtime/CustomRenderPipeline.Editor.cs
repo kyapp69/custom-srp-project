@@ -11,15 +11,9 @@ public partial class CustomRenderPipeline
 
 #if UNITY_EDITOR
 
-	partial void InitializeForEditor()
-	{
-		Lightmapping.SetDelegate(lightsDelegate);
-	}
+	partial void InitializeForEditor() => Lightmapping.SetDelegate(lightsDelegate);
 
-	partial void DisposeForEditor()
-	{
-		Lightmapping.ResetDelegate();
-	}
+	partial void DisposeForEditor() => Lightmapping.ResetDelegate();
 
 	static readonly Lightmapping.RequestLightsDelegate lightsDelegate =
 		(Light[] lights, NativeArray<LightDataGI> output) =>
