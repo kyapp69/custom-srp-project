@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Rendering;
 
 [CreateAssetMenu(menuName = "Rendering/Custom Render Pipeline")]
@@ -19,8 +19,6 @@ public partial class CustomRenderPipelineAsset : RenderPipelineAsset
 
 	[SerializeField]
 	bool
-		useDynamicBatching = true,
-		useGPUInstancing = true,
 		useSRPBatcher = true,
 		useLightsPerObject = true;
 
@@ -39,8 +37,17 @@ public partial class CustomRenderPipelineAsset : RenderPipelineAsset
 	[SerializeField]
 	Shader cameraRendererShader = default;
 
+#pragma warning disable CS0414
+	[Header("Deprecated Settings")]
+	[SerializeField, Tooltip("Dynamic batching is no longer used.")]
+	bool useDynamicBatching = true;
+
+	[SerializeField, Tooltip("GPU instancing is always enabled.")]
+	bool useGPUInstancing = true;
+#pragma warning restore CS0414
+
 	protected override RenderPipeline CreatePipeline() => new CustomRenderPipeline(
-		cameraBuffer, useDynamicBatching, useGPUInstancing, useSRPBatcher,
+		cameraBuffer, useSRPBatcher,
 		useLightsPerObject, shadows, postFXSettings, (int)colorLUTResolution,
 		cameraRendererShader);
 }
