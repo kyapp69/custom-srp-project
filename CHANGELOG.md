@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
-- `CustomRenderPipelineAsset` configuration options __Use Dynamic Batching__ and __Use GPU Instancing__. 
+- `CustomRenderPipelineAsset` configuration options **Use Dynamic Batching** and **Use GPU Instancing**. 
 
 ## [2.0.0] - 2023-08-21
 
@@ -40,14 +40,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support inner cone angle and falloff for baking spotlights.
 - Lighting settings assets for all scenes.
-- __.gitignore__ file.
+- **.gitignore** file.
 
 ### Changed
 
 - Updated Unity to version 2022.3.5f1.
-- Upgraded __Core RP Library__ package to version 14.0.8 and removed AI package.
+- Upgraded **Core RP Library** package to version 14.0.8 and removed AI package.
 - Switched to `CustomRenderPipeline.Render` version with list instead of array parameter.
-- Disabled automatic baking for __Baked Light__ scene so generated maps can be inspected.
+- Disabled automatic baking for **Baked Light** scene so generated maps can be inspected.
 - Provide required `BatchCullingProjectionType` argument to `DrawShadowSettings` constructor, even through it will be deprecated again in Unity 2023.
 - Project _Enter Play Mode Settings_ set to not reload domain and scene.
 - C# code uses more modern syntax and more closely matches standard and Unity C# style.
@@ -56,9 +56,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Added missing matrices to __Common.hlsl__ and __UnityInput.hlsl__.
+- Added missing matrices to **Common.hlsl** and **UnityInput.hlsl**.
 - Also clear color when skybox is used, to avoid `NaN` and `Inf` values that can mess up frame buffer blending.
 - Always perform a buffer load for the final draw if using a reduced viewport, to prevent artifacts on tile-based GPUs.
 - Copy depth once more after post FX, so post-FX gizmos correctly use depth.
 - Normalize unpacked normal vectors because Unity no longer does this.
-- Removed duplicate for-loop iterator variable declaration in __FXAAPass.hlsl__ to avoid shader compiler warning.
+- Removed duplicate for-loop iterator variable declaration in **FXAAPass.hlsl** to avoid shader compiler warning.
