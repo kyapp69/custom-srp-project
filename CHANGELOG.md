@@ -9,13 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Use renderer lists for drawing geometry.
+- Opaque, transparent, and unsupported-shaders geometry is drawn via renderer lists.
 - `VisibleGeometryPass` replaced with `GeometryPass`, `SkyboxPass`, and `CopyAttachmentPass`.
+- Dynamic batching is no longer used.
+- GPU instancing is always enabled.
 
 ### Deprecated
 
-- Configuration option for enable dynamic batching. It is no longer used.
-- Configuration option for GPU instancing. It is always enabled.
+- `CustomRenderPipelineAsset` configuration options __Use Dynamic Batching__ and __Use GPU Instancing__. 
 
 ## [2.0.0] - 2023-08-21
 
