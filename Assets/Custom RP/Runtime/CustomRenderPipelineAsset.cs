@@ -37,14 +37,12 @@ public partial class CustomRenderPipelineAsset : RenderPipelineAsset
 	[SerializeField]
 	Shader cameraRendererShader = default;
 
-#pragma warning disable CS0414
 	[Header("Deprecated Settings")]
 	[SerializeField, Tooltip("Dynamic batching is no longer used.")]
-	bool useDynamicBatching = true;
+	bool useDynamicBatching;
 
 	[SerializeField, Tooltip("GPU instancing is always enabled.")]
-	bool useGPUInstancing = true;
-#pragma warning restore CS0414
+	bool useGPUInstancing;
 
 	protected override RenderPipeline CreatePipeline() => new CustomRenderPipeline(
 		cameraBuffer, useSRPBatcher,

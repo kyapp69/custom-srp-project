@@ -6,8 +6,8 @@ using UnityEngine.Rendering.RendererUtils;
 public class GeometryPass
 {
 	static readonly ProfilingSampler
-		samplerOpaque = new("Geometry Opaque"),
-		samplerTransparent = new("Geometry Transparent");
+		samplerOpaque = new("Opaque Geometry"),
+		samplerTransparent = new("Transparent Geometry");
 
 	static readonly ShaderTagId[] shaderTagIds = {
 		new("SRPDefaultUnlit"),
@@ -28,10 +28,10 @@ public class GeometryPass
 		bool useLightsPerObject, int renderingLayerMask, bool opaque)
 	{
 		ProfilingSampler sampler = opaque ? samplerOpaque : samplerTransparent;
+
 		using RenderGraphBuilder builder = renderGraph.AddRenderPass(
 			sampler.name, out GeometryPass pass, sampler);
-		PerObjectData lightsPerObjectFlags = useLightsPerObject ?
-			PerObjectData.LightData | PerObjectData.LightIndices : PerObjectData.None;
+
 		pass.list = builder.UseRendererList(renderGraph.CreateRendererList(
 			new RendererListDesc(shaderTagIds, cullingResults, camera)
 			{
@@ -45,11 +45,14 @@ public class GeometryPass
 					PerObjectData.OcclusionProbe |
 					PerObjectData.LightProbeProxyVolume |
 					PerObjectData.OcclusionProbeProxyVolume |
-					lightsPerObjectFlags,
+					(useLightsPerObject ?
+						PerObjectData.LightData | PerObjectData.LightIndices :
+						PerObjectData.None),
 				renderQueueRange = opaque ?
 					RenderQueueRange.opaque : RenderQueueRange.transparent,
 				renderingLayerMask = (uint)renderingLayerMask
 			}));
+
 		builder.SetRenderFunc<GeometryPass>((pass, context) => pass.Render(context));
 	}
 }

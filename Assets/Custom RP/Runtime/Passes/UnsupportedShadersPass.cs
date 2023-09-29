@@ -37,16 +37,19 @@ public class UnsupportedShadersPass
 #if UNITY_EDITOR
 		using RenderGraphBuilder builder = renderGraph.AddRenderPass(
 			sampler.name, out UnsupportedShadersPass pass, sampler);
+
 		if (errorMaterial == null)
 		{
 			errorMaterial = new(Shader.Find("Hidden/InternalErrorShader"));
 		}
+
 		pass.list = builder.UseRendererList(renderGraph.CreateRendererList(
 			new RendererListDesc(shaderTagIds, cullingResults, camera)
 			{
 				overrideMaterial = errorMaterial,
 				renderQueueRange = RenderQueueRange.all
 			}));
+
 		builder.SetRenderFunc<UnsupportedShadersPass>(
 			(pass, context) => pass.Render(context));
 #endif

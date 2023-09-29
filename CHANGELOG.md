@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2023-09-29
+
+### Changed
+
+- Use renderer lists for drawing geometry.
+- `VisibleGeometryPass` replaced with `GeometryPass`, `SkyboxPass`, and `CopyAttachmentPass`.
+
+### Deprecated
+
+- Configuration option for enable dynamic batching. It is no longer used.
+- Configuration option for GPU instancing. It is always enabled.
+
 ## [2.0.0] - 2023-08-21
 
 ### Added
