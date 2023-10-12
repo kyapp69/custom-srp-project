@@ -9,7 +9,7 @@ public class GeometryPass
 		samplerOpaque = new("Opaque Geometry"),
 		samplerTransparent = new("Transparent Geometry");
 
-	static readonly ShaderTagId[] shaderTagIds = {
+	static readonly ShaderTagId[] shaderTagIDs = {
 		new("SRPDefaultUnlit"),
 		new("CustomLit")
 	};
@@ -24,8 +24,13 @@ public class GeometryPass
 	}
 
 	public static void Record(
-		RenderGraph renderGraph, Camera camera, CullingResults cullingResults,
-		bool useLightsPerObject, int renderingLayerMask, bool opaque)
+		RenderGraph renderGraph,
+		Camera camera,
+		CullingResults cullingResults,
+		bool useLightsPerObject,
+		int renderingLayerMask,
+		bool opaque,
+		in CameraRendererTextures textures)
 	{
 		ProfilingSampler sampler = opaque ? samplerOpaque : samplerTransparent;
 
@@ -33,7 +38,7 @@ public class GeometryPass
 			sampler.name, out GeometryPass pass, sampler);
 
 		pass.list = builder.UseRendererList(renderGraph.CreateRendererList(
-			new RendererListDesc(shaderTagIds, cullingResults, camera)
+			new RendererListDesc(shaderTagIDs, cullingResults, camera)
 			{
 				sortingCriteria = opaque ?
 					SortingCriteria.CommonOpaque : SortingCriteria.CommonTransparent,
@@ -52,6 +57,20 @@ public class GeometryPass
 					RenderQueueRange.opaque : RenderQueueRange.transparent,
 				renderingLayerMask = (uint)renderingLayerMask
 			}));
+
+		builder.ReadWriteTexture(textures.colorAttachment);
+		builder.ReadWriteTexture(textures.depthAttachment);
+		if (!opaque)
+		{
+			if (textures.colorCopy.IsValid())
+			{
+				builder.ReadTexture(textures.colorCopy);
+			}
+			if (textures.depthCopy.IsValid())
+			{
+				builder.ReadTexture(textures.depthCopy);
+			}
+		}
 
 		builder.SetRenderFunc<GeometryPass>((pass, context) => pass.Render(context));
 	}

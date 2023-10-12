@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2023-10-12
+
+### Changed
+
+- Color and depth attachments and their copies are managed by the render graph.
+- `SetupPass` registers color and depth copies instead of `CopyAttachmentsPass`.
+- Passes register their usage of attachments and their copies.
+- Passes are decoupled from `CameraRenderer`. `CameraRendererCopier` facilitates texture copying.
+
 ## [2.1.0] - 2023-09-29
 
 ### Changed

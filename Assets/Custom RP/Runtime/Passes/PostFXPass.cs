@@ -7,14 +7,20 @@ public class PostFXPass
 
 	PostFXStack postFXStack;
 
-	void Render(RenderGraphContext context) =>
-		postFXStack.Render(context, CameraRenderer.colorAttachmentId);
+	TextureHandle colorAttachment;
 
-	public static void Record(RenderGraph renderGraph, PostFXStack postFXStack)
+	void Render(RenderGraphContext context) =>
+		postFXStack.Render(context, colorAttachment);
+
+	public static void Record(
+		RenderGraph renderGraph,
+		PostFXStack postFXStack,
+		in CameraRendererTextures textures)
 	{
 		using RenderGraphBuilder builder =
 			renderGraph.AddRenderPass(sampler.name, out PostFXPass pass, sampler);
 		pass.postFXStack = postFXStack;
+		pass.colorAttachment = builder.ReadTexture(textures.colorAttachment);
 		builder.SetRenderFunc<PostFXPass>((pass, context) => pass.Render(context));
 	}
 }

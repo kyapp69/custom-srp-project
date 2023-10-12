@@ -9,7 +9,7 @@ public class UnsupportedShadersPass
 #if UNITY_EDITOR
 	static readonly ProfilingSampler sampler = new("Unsupported Shaders");
 
-	static readonly ShaderTagId[] shaderTagIds = {
+	static readonly ShaderTagId[] shaderTagIDs = {
 		new("Always"),
 		new("ForwardBase"),
 		new("PrepassBase"),
@@ -44,7 +44,7 @@ public class UnsupportedShadersPass
 		}
 
 		pass.list = builder.UseRendererList(renderGraph.CreateRendererList(
-			new RendererListDesc(shaderTagIds, cullingResults, camera)
+			new RendererListDesc(shaderTagIDs, cullingResults, camera)
 			{
 				overrideMaterial = errorMaterial,
 				renderQueueRange = RenderQueueRange.all
