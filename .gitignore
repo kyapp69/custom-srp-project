@@ -10,5 +10,6 @@ obj
 ApiUpdaterCheck.txt
 .vsconfig
 *.dwlt
+.vscode/*
 
 UserSettings/
