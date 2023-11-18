@@ -7,7 +7,8 @@ public class SetupPass
 {
 	static readonly ProfilingSampler sampler = new("Setup");
 
-	static readonly int attachmentSizeID = Shader.PropertyToID("_CameraBufferSize");
+	static readonly int attachmentSizeID =
+		Shader.PropertyToID("_CameraBufferSize");
 
 	bool useIntermediateAttachments;
 
@@ -35,12 +36,10 @@ public class SetupPass
 			clearFlags <= CameraClearFlags.Depth,
 			clearFlags <= CameraClearFlags.Color,
 			clearFlags == CameraClearFlags.Color ?
-				camera.backgroundColor.linear : Color.clear
-		);
+				camera.backgroundColor.linear : Color.clear);
 		cmd.SetGlobalVector(attachmentSizeID, new Vector4(
 			1f / attachmentSize.x, 1f / attachmentSize.y,
-			attachmentSize.x, attachmentSize.y
-		));
+			attachmentSize.x, attachmentSize.y));
 		context.renderContext.ExecuteCommandBuffer(cmd);
 		cmd.Clear();
 	}
@@ -54,8 +53,8 @@ public class SetupPass
 		Vector2Int attachmentSize,
 		Camera camera)
 	{
-		using RenderGraphBuilder builder =
-			renderGraph.AddRenderPass(sampler.name, out SetupPass pass, sampler);
+		using RenderGraphBuilder builder = renderGraph.AddRenderPass(
+			sampler.name, out SetupPass pass, sampler);
 		pass.useIntermediateAttachments = useIntermediateAttachments;
 		pass.attachmentSize = attachmentSize;
 		pass.camera = camera;
@@ -101,7 +100,8 @@ public class SetupPass
 					BuiltinRenderTextureType.CameraTarget));
 		}
 		builder.AllowPassCulling(false);
-		builder.SetRenderFunc<SetupPass>((pass, context) => pass.Render(context));
+		builder.SetRenderFunc<SetupPass>(
+			(pass, context) => pass.Render(context));
 
 		return new CameraRendererTextures(
 			colorAttachment, depthAttachment, colorCopy, depthCopy);

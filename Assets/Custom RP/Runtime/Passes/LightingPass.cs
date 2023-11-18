@@ -5,32 +5,23 @@ public class LightingPass
 {
 	static readonly ProfilingSampler sampler = new("Lighting");
 
-	Lighting lighting;
+	readonly Lighting lighting = new();
 
-	CullingResults cullingResults;
+	void Render(RenderGraphContext context) => lighting.Render(context);
 
-	ShadowSettings shadowSettings;
-
-	bool useLightsPerObject;
-
-	int renderingLayerMask;
-
-	void Render(RenderGraphContext context) => lighting.Setup(
-		context, cullingResults, shadowSettings,
-		useLightsPerObject, renderingLayerMask);
-
-	public static void Record(
-		RenderGraph renderGraph, Lighting lighting,
+	public static ShadowTextures Record(
+		RenderGraph renderGraph,
 		CullingResults cullingResults, ShadowSettings shadowSettings,
 		bool useLightsPerObject, int renderingLayerMask)
 	{
-		using RenderGraphBuilder builder =
-			renderGraph.AddRenderPass(sampler.name, out LightingPass pass, sampler);
-		pass.lighting = lighting;
-		pass.cullingResults = cullingResults;
-		pass.shadowSettings = shadowSettings;
-		pass.useLightsPerObject = useLightsPerObject;
-		pass.renderingLayerMask = renderingLayerMask;
-		builder.SetRenderFunc<LightingPass>((pass, context) => pass.Render(context));
+		using RenderGraphBuilder builder = renderGraph.AddRenderPass(
+			sampler.name, out LightingPass pass, sampler);
+		pass.lighting.Setup(
+			cullingResults, shadowSettings,
+			useLightsPerObject, renderingLayerMask);
+		builder.SetRenderFunc<LightingPass>(
+			(pass, context) => pass.Render(context));
+		builder.AllowPassCulling(false);
+		return pass.lighting.GetShadowTextures(renderGraph, builder);
 	}
 }

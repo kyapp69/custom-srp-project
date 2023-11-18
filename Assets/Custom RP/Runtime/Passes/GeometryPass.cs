@@ -30,7 +30,8 @@ public class GeometryPass
 		bool useLightsPerObject,
 		int renderingLayerMask,
 		bool opaque,
-		in CameraRendererTextures textures)
+		in CameraRendererTextures textures,
+		in ShadowTextures shadowTextures)
 	{
 		ProfilingSampler sampler = opaque ? samplerOpaque : samplerTransparent;
 
@@ -41,7 +42,8 @@ public class GeometryPass
 			new RendererListDesc(shaderTagIDs, cullingResults, camera)
 			{
 				sortingCriteria = opaque ?
-					SortingCriteria.CommonOpaque : SortingCriteria.CommonTransparent,
+					SortingCriteria.CommonOpaque :
+					SortingCriteria.CommonTransparent,
 				rendererConfiguration =
 					PerObjectData.ReflectionProbes |
 					PerObjectData.Lightmaps |
@@ -71,7 +73,10 @@ public class GeometryPass
 				builder.ReadTexture(textures.depthCopy);
 			}
 		}
+		builder.ReadTexture(shadowTextures.directionalAtlas);
+		builder.ReadTexture(shadowTextures.otherAtlas);
 
-		builder.SetRenderFunc<GeometryPass>((pass, context) => pass.Render(context));
+		builder.SetRenderFunc<GeometryPass>(
+			(pass, context) => pass.Render(context));
 	}
 }
