@@ -58,8 +58,10 @@ public class CopyAttachmentsPass
 			pass.copyDepth = copyDepth;
 			pass.copier = copier;
 			
-			pass.colorAttachment = builder.ReadTexture(textures.colorAttachment);
-			pass.depthAttachment = builder.ReadTexture(textures.depthAttachment);
+			pass.colorAttachment = builder.ReadTexture(
+				textures.colorAttachment);
+			pass.depthAttachment = builder.ReadTexture(
+				textures.depthAttachment);
 			if (copyColor)
 			{
 				pass.colorCopy = builder.WriteTexture(textures.colorCopy);

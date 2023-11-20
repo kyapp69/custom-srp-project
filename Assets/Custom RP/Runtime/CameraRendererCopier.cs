@@ -13,7 +13,8 @@ public readonly struct CameraRendererCopier
 	static readonly bool copyTextureSupported =
 		SystemInfo.copyTextureSupport > CopyTextureSupport.None;
 
-	public static bool RequiresRenderTargetResetAfterCopy => !copyTextureSupported;
+	public static bool RequiresRenderTargetResetAfterCopy =>
+		!copyTextureSupported;
 
 	public readonly Camera Camera => camera;
 
@@ -24,7 +25,9 @@ public readonly struct CameraRendererCopier
 	readonly CameraSettings.FinalBlendMode finalBlendMode;
 
 	public CameraRendererCopier(
-		Material material, Camera camera, CameraSettings.FinalBlendMode finalBlendMode)
+		Material material,
+		Camera camera,
+		CameraSettings.FinalBlendMode finalBlendMode)
 	{
 		this.material = material;
 		this.camera = camera;
@@ -71,7 +74,8 @@ public readonly struct CameraRendererCopier
 		buffer.SetGlobalTexture(sourceTextureID, from);
 		buffer.SetRenderTarget(
 			BuiltinRenderTextureType.CameraTarget,
-			finalBlendMode.destination == BlendMode.Zero && camera.rect == fullViewRect ?
+			finalBlendMode.destination == BlendMode.Zero &&
+				camera.rect == fullViewRect ?
 				RenderBufferLoadAction.DontCare : RenderBufferLoadAction.Load,
 			RenderBufferStoreAction.Store);
 		buffer.SetViewport(camera.pixelRect);

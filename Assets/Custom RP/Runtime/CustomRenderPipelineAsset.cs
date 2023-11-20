@@ -44,8 +44,8 @@ public partial class CustomRenderPipelineAsset : RenderPipelineAsset
 	[SerializeField, Tooltip("GPU instancing is always enabled.")]
 	bool useGPUInstancing;
 
-	protected override RenderPipeline CreatePipeline() => new CustomRenderPipeline(
-		cameraBuffer, useSRPBatcher,
-		useLightsPerObject, shadows, postFXSettings, (int)colorLUTResolution,
-		cameraRendererShader);
+	protected override RenderPipeline CreatePipeline() =>
+		new CustomRenderPipeline(cameraBuffer, useSRPBatcher,
+			useLightsPerObject, shadows, postFXSettings,
+			(int)colorLUTResolution, cameraRendererShader);
 }

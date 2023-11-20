@@ -11,7 +11,8 @@ public partial class CustomRenderPipeline
 
 #if UNITY_EDITOR
 
-	partial void InitializeForEditor() => Lightmapping.SetDelegate(lightsDelegate);
+	partial void InitializeForEditor() =>
+		Lightmapping.SetDelegate(lightsDelegate);
 
 	partial void DisposeForEditor() => Lightmapping.ResetDelegate();
 
@@ -37,8 +38,10 @@ public partial class CustomRenderPipeline
 				case LightType.Spot:
 					var spotLight = new SpotLight();
 					LightmapperUtils.Extract(light, ref spotLight);
-					spotLight.innerConeAngle = light.innerSpotAngle * Mathf.Deg2Rad;
-					spotLight.angularFalloff = AngularFalloffType.AnalyticAndInnerAngle;
+					spotLight.innerConeAngle =
+						light.innerSpotAngle * Mathf.Deg2Rad;
+					spotLight.angularFalloff =
+						AngularFalloffType.AnalyticAndInnerAngle;
 					lightData.Init(ref spotLight);
 					break;
 				case LightType.Area:

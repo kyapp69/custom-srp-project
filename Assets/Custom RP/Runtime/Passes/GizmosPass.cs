@@ -20,8 +20,8 @@ public class GizmosPass
 		ScriptableRenderContext renderContext = context.renderContext;
 		if (requiresDepthCopy)
 		{
-			copier.CopyByDrawing(
-				buffer, depthAttachment, BuiltinRenderTextureType.CameraTarget, true);
+			copier.CopyByDrawing(buffer, depthAttachment,
+				BuiltinRenderTextureType.CameraTarget, true);
 			renderContext.ExecuteCommandBuffer(buffer);
 			buffer.Clear();
 		}
@@ -40,15 +40,17 @@ public class GizmosPass
 #if UNITY_EDITOR
 		if (Handles.ShouldRenderGizmos())
 		{
-			using RenderGraphBuilder builder =
-				renderGraph.AddRenderPass(sampler.name, out GizmosPass pass, sampler);
+			using RenderGraphBuilder builder = renderGraph.AddRenderPass(
+				sampler.name, out GizmosPass pass, sampler);
 			pass.requiresDepthCopy = useIntermediateBuffer;
 			pass.copier = copier;
 			if (useIntermediateBuffer)
 			{
-				pass.depthAttachment = builder.ReadTexture(textures.depthAttachment);
+				pass.depthAttachment = builder.ReadTexture(
+					textures.depthAttachment);
 			}
-			builder.SetRenderFunc<GizmosPass>((pass, context) => pass.Render(context));
+			builder.SetRenderFunc<GizmosPass>(
+				(pass, context) => pass.Render(context));
 		}
 #endif
 	}

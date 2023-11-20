@@ -10,7 +10,8 @@ public class CustomRenderPipelineCamera : MonoBehaviour
 	[System.NonSerialized]
 	ProfilingSampler sampler;
 
-	public ProfilingSampler Sampler => sampler ??= new(GetComponent<Camera>().name);
+	public ProfilingSampler Sampler =>
+		sampler ??= new(GetComponent<Camera>().name);
 
 	public CameraSettings Settings => settings ??= new();
 

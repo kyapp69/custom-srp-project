@@ -2,9 +2,15 @@
 using UnityEditor;
 
 [CanEditMultipleObjects]
-[CustomEditorForRenderPipeline(typeof(Light), typeof(CustomRenderPipelineAsset))]
+[CustomEditorForRenderPipeline(
+	typeof(Light), typeof(CustomRenderPipelineAsset))]
 public class CustomLightEditor : LightEditor
 {
+	const string
+		warningOnlyShadows = "Culling Mask only affects shadows.",
+		warningOnlyShadowsLightsPerObject =
+			"Culling Mask only affects shadow unless Lights Per Objects is on.";
+
 	static readonly GUIContent renderingLayerMaskLabel =
 		new("Rendering Layer Mask", "Functional version of above property.");
 
@@ -28,8 +34,7 @@ public class CustomLightEditor : LightEditor
 		{
 			EditorGUILayout.HelpBox(
 				light.type == LightType.Directional ?
-					"Culling Mask only affects shadows." :
-					"Culling Mask only affects shadow unless Lights Per Objects is on.",
+					warningOnlyShadows : warningOnlyShadowsLightsPerObject,
 				MessageType.Warning);
 		}
 	}

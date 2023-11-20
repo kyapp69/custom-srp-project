@@ -192,7 +192,8 @@ public class CustomShaderGUI : ShaderGUI
 		return false;
 	}
 
-	bool HasProperty(string name) => FindProperty(name, properties, false) != null;
+	bool HasProperty(string name) =>
+		FindProperty(name, properties, false) != null;
 
 	void SetProperty (string name, string keyword, bool value)
 	{

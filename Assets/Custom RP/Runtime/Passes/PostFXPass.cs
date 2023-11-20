@@ -17,10 +17,11 @@ public class PostFXPass
 		PostFXStack postFXStack,
 		in CameraRendererTextures textures)
 	{
-		using RenderGraphBuilder builder =
-			renderGraph.AddRenderPass(sampler.name, out PostFXPass pass, sampler);
+		using RenderGraphBuilder builder = renderGraph.AddRenderPass(
+			sampler.name, out PostFXPass pass, sampler);
 		pass.postFXStack = postFXStack;
 		pass.colorAttachment = builder.ReadTexture(textures.colorAttachment);
-		builder.SetRenderFunc<PostFXPass>((pass, context) => pass.Render(context));
+		builder.SetRenderFunc<PostFXPass>(
+			(pass, context) => pass.Render(context));
 	}
 }

@@ -37,9 +37,11 @@ public partial class CustomRenderPipeline : RenderPipeline
 		renderer = new(cameraRendererShader);
 	}
 
-	protected override void Render(ScriptableRenderContext context, Camera[] cameras) {}
+	protected override void Render(
+		ScriptableRenderContext context, Camera[] cameras) {}
 
-	protected override void Render(ScriptableRenderContext context, List<Camera> cameras)
+	protected override void Render(
+		ScriptableRenderContext context, List<Camera> cameras)
 	{
 		for (int i = 0; i < cameras.Count; i++)
 		{

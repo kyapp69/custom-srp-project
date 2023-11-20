@@ -22,10 +22,11 @@ public class FinalPass
 		CameraRendererCopier copier,
 		in CameraRendererTextures textures)
 	{
-		using RenderGraphBuilder builder =
-			renderGraph.AddRenderPass(sampler.name, out FinalPass pass, sampler);
+		using RenderGraphBuilder builder = renderGraph.AddRenderPass(
+			sampler.name, out FinalPass pass, sampler);
 		pass.copier = copier;
 		pass.colorAttachment = builder.ReadTexture(textures.colorAttachment);
-		builder.SetRenderFunc<FinalPass>((pass, context) => pass.Render(context));
+		builder.SetRenderFunc<FinalPass>(
+			(pass, context) => pass.Render(context));
 	}
 }
