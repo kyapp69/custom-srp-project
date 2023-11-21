@@ -5,14 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.3.0] - 2023-11-21
 
 ### Changed
 
+- Updated Unity to version 2022.3.12f1.
 - Shadow textures are managed by the render graph.
 - `LightingPass` sets up lights and shadows in `Record` instead of `Render`.
 - `GeometryPass` register reading from shadow textures.
-- Decoupled `CameraRenderer` and `Lighting`.
+- Merged `Lighting` into `LightingPass`.
+- Set global shader keywords via buffer using `GlobalKeyword`.
 
 ## [2.2.0] - 2023-10-12
 
