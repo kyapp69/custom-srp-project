@@ -117,9 +117,7 @@ public partial class PostFXStack
 		this.keepAlpha = keepAlpha;
 		this.useHDR = useHDR;
 		this.camera = camera;
-		this.settings = camera.cameraType <= CameraType.SceneView ?
-			settings : null;
-		ApplySceneViewState();
+		this.settings = settings;
 	}
 
 	public void Render(RenderGraphContext context, TextureHandle sourceId)

@@ -56,6 +56,8 @@ public class CameraRenderer
 		{
 			postFXSettings = cameraSettings.postFXSettings;
 		}
+		bool hasActivePostFX =
+			postFXSettings != null && postFXSettings.IsActiveFor(camera);
 
 		float renderScale = cameraSettings.GetRenderScale(
 			bufferSettings.renderScale);
@@ -101,7 +103,7 @@ public class CameraRenderer
 			bufferSettings.bicubicRescaling, bufferSettings.fxaa);
 
 		bool useIntermediateBuffer = useScaledRendering ||
-			useColorTexture || useDepthTexture || postFXStack.IsActive;
+			useColorTexture || useDepthTexture || hasActivePostFX;
 
 		var renderGraphParameters = new RenderGraphParameters
 		{
@@ -145,7 +147,7 @@ public class CameraRenderer
 
 			UnsupportedShadersPass.Record(renderGraph, camera, cullingResults);
 
-			if (postFXStack.IsActive)
+			if (hasActivePostFX)
 			{
 				PostFXPass.Record(renderGraph, postFXStack, textures);
 			}
