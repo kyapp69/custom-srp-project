@@ -22,6 +22,6 @@ public class PostFXPass
 		pass.postFXStack = postFXStack;
 		pass.colorAttachment = builder.ReadTexture(textures.colorAttachment);
 		builder.SetRenderFunc<PostFXPass>(
-			(pass, context) => pass.Render(context));
+			static (pass, context) => pass.Render(context));
 	}
 }

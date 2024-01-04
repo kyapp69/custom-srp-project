@@ -50,7 +50,7 @@ public class GizmosPass
 					textures.depthAttachment);
 			}
 			builder.SetRenderFunc<GizmosPass>(
-				(pass, context) => pass.Render(context));
+				static (pass, context) => pass.Render(context));
 		}
 #endif
 	}

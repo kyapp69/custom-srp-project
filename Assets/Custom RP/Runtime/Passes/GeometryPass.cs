@@ -77,6 +77,6 @@ public class GeometryPass
 		builder.ReadTexture(shadowTextures.otherAtlas);
 
 		builder.SetRenderFunc<GeometryPass>(
-			(pass, context) => pass.Render(context));
+			static (pass, context) => pass.Render(context));
 	}
 }

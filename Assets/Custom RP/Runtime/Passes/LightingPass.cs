@@ -210,7 +210,7 @@ public class LightingPass
 		pass.Setup(cullingResults, shadowSettings,
 			useLightsPerObject, renderingLayerMask);
 		builder.SetRenderFunc<LightingPass>(
-			(pass, context) => pass.Render(context));
+			static (pass, context) => pass.Render(context));
 		builder.AllowPassCulling(false);
 		return pass.shadows.GetRenderTextures(renderGraph, builder);
 	}

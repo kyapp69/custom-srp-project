@@ -101,7 +101,7 @@ public class SetupPass
 		}
 		builder.AllowPassCulling(false);
 		builder.SetRenderFunc<SetupPass>(
-			(pass, context) => pass.Render(context));
+			static (pass, context) => pass.Render(context));
 
 		return new CameraRendererTextures(
 			colorAttachment, depthAttachment, colorCopy, depthCopy);

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated Unity to version 2022.3.16f1.
 - Moved logic to decide whether post FX are active for a camera to new `PostFXSettings.IsActiveFor` method.
+- Explicitly marked all anonymous render functions as static.
 
 ## [2.3.0] - 2023-11-21
 

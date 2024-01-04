@@ -27,6 +27,6 @@ public class FinalPass
 		pass.copier = copier;
 		pass.colorAttachment = builder.ReadTexture(textures.colorAttachment);
 		builder.SetRenderFunc<FinalPass>(
-			(pass, context) => pass.Render(context));
+			static (pass, context) => pass.Render(context));
 	}
 }
