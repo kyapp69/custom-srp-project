@@ -10,8 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated Unity to version 2022.3.16f1.
-- Moved logic to decide whether post FX are active for a camera to new `PostFXSettings.IsActiveFor` method.
 - Explicitly marked all anonymous render functions as static.
+- Use local `bufferSettings.allowHDR` instead of separate `useHDR` variable in `CameraRenderer`.
+- Moved logic to decide whether post FX are active for a camera to new `PostFXSettings.IsActiveFor` method.
+- Moved logic from `PostFXStack` to `PostFXPass`, `BloomPass`, and `ColorLUTPass`.
+- `PostFXStack` only facilitates drawing and access to common settings.
+- Post FX textures are managed by the render graph.
 
 ## [2.3.0] - 2023-11-21
 

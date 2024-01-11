@@ -81,7 +81,7 @@ public class CameraRenderer
 		CullingResults cullingResults = context.Cull(
 			ref scriptableCullingParameters);
 
-		bool useHDR = bufferSettings.allowHDR && camera.allowHDR;
+		bufferSettings.allowHDR &= camera.allowHDR;
 		Vector2Int bufferSize = default;
 		if (useScaledRendering)
 		{
@@ -97,11 +97,6 @@ public class CameraRenderer
 		}
 
 		bufferSettings.fxaa.enabled &= cameraSettings.allowFXAA;
-		postFXStack.Setup(
-			camera, bufferSize, postFXSettings, cameraSettings.keepAlpha,
-			useHDR, colorLUTResolution, cameraSettings.finalBlendMode,
-			bufferSettings.bicubicRescaling, bufferSettings.fxaa);
-
 		bool useIntermediateBuffer = useScaledRendering ||
 			useColorTexture || useDepthTexture || hasActivePostFX;
 
@@ -125,7 +120,7 @@ public class CameraRenderer
 
 			CameraRendererTextures textures = SetupPass.Record(
 				renderGraph, useIntermediateBuffer, useColorTexture,
-				useDepthTexture, useHDR, bufferSize, camera);
+				useDepthTexture, bufferSettings.allowHDR, bufferSize, camera);
 
 			GeometryPass.Record(
 				renderGraph, camera, cullingResults,
@@ -149,7 +144,14 @@ public class CameraRenderer
 
 			if (hasActivePostFX)
 			{
-				PostFXPass.Record(renderGraph, postFXStack, textures);
+				postFXStack.BufferSettings = bufferSettings;
+				postFXStack.BufferSize = bufferSize;
+				postFXStack.Camera = camera;
+				postFXStack.FinalBlendMode = cameraSettings.finalBlendMode;
+				postFXStack.Settings = postFXSettings;
+				PostFXPass.Record(
+					renderGraph, postFXStack, colorLUTResolution,
+					cameraSettings.keepAlpha, textures);
 			}
 			else if (useIntermediateBuffer)
 			{
