@@ -178,7 +178,7 @@ public class PostFXSettings : ScriptableObject
 		}
 	}
 
-	public bool IsActiveFor(Camera camera)
+	public static bool AreApplicableTo(Camera camera)
 	{
 #if UNITY_EDITOR
 		if (camera.cameraType == CameraType.SceneView &&

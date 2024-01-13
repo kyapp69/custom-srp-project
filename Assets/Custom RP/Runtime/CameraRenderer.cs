@@ -57,7 +57,7 @@ public class CameraRenderer
 			postFXSettings = cameraSettings.postFXSettings;
 		}
 		bool hasActivePostFX =
-			postFXSettings != null && postFXSettings.IsActiveFor(camera);
+			postFXSettings != null && PostFXSettings.AreApplicableTo(camera);
 
 		float renderScale = cameraSettings.GetRenderScale(
 			bufferSettings.renderScale);
